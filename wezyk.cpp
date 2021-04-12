@@ -6,17 +6,21 @@
 
 using namespace std;
 
-void czekaj(int sekundy, Waz& waz)
+int wysokosc;
+int szerokosc;
+int szybkosc;
+clock_t time1;
+clock_t time2;
+
+void czekaj(clock_t koniec_czekania, Waz& waz)
 {
-	double koniec_czekania;
-	koniec_czekania = ((double)clock() + 30 - clock()/CLOCKS_PER_SEC);
-	while ((double)clock() < koniec_czekania)
+	do
 	{
 		if (_kbhit())
 		{
 			waz.steruj();
 		}
-	}
+	} while (clock() < koniec_czekania);
 }
 void idzdoxy(int x, int y)
 {
@@ -46,19 +50,60 @@ void steruj(Waz& waz, Plansza& plansza) {
 	}
 }
 
+void wybierzPoziomTrudnosci(int number) {
+	switch (number) {
+	case 1:
+		szerokosc = 50;
+		wysokosc = 20;
+		szybkosc = 100;
+		break;
+	case 2:
+		szerokosc = 50;
+		wysokosc = 20;
+		szybkosc = 80;
+		break;
+	case 3:
+		szerokosc = 50;
+		wysokosc = 20;
+		szybkosc = 70;
+		break;
+	}
+}
+
+void showMenu(Waz& waz) {
+	int number = 1;
+	do {
+		cout << "Wybierz Poziom trudności: " << endl;
+		cout << "1. Latwy" << endl;
+		cout << "2. Normalny" << endl;
+		cout << "3. Trudny" << endl;
+		if (number > 3 || number < 1) cout << "nie prawidłowa liczba, prosze wprowadzic jeszcze raz: ";
+		cin >> number;
+		idzdoxy(0, 0);
+	} while (number > 3 || number < 1);
+	system("cls");
+	wybierzPoziomTrudnosci(number);
+}
+
 int main()
 {
-	Plansza plansza(70, 25);
-	Waz waz(16, 20);
-
+	Waz waz(4, 4);
+	
 	system("cls");
-	cout << "Punkty: " << waz.getDlugosc()*100;
+
+	showMenu(waz);
+
+	Plansza plansza(szerokosc, wysokosc);
+
 	while(!plansza.getGameOver() && !waz.getGameOver()) {
+		time1 = clock();
+		cout << "Punkty: " << waz.getDlugosc() << endl;
 		steruj(waz, plansza);
 		plansza.aktualizuj(waz);
 		plansza.wypisz();
-		czekaj(1, waz);
 		idzdoxy(0,0);
+		time2 = clock();
+		czekaj(clock() + szybkosc - time2 + time1, waz);
 	}
 	return 0;
 }
