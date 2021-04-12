@@ -1,14 +1,14 @@
 #pragma once
 #include "Pole.h"
 
-
 class Waz
 {
 	int X = 16;
-	int Y = 9;
+	int Y = 3;
 	int dlugosc = 5;
 	int gdzieIdz = 1;
 	bool gameover = false;
+
 public:
 	Waz(int X, int Y);
 	int getDlugosc();

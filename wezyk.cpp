@@ -8,9 +8,9 @@ using namespace std;
 
 void czekaj(int sekundy, Waz& waz)
 {
-	clock_t koniec_czekania;
-	koniec_czekania = clock() + sekundy * CLOCKS_PER_SEC/20 ;
-	while (clock() < koniec_czekania)
+	double koniec_czekania;
+	koniec_czekania = ((double)clock() + 30 - clock()/CLOCKS_PER_SEC);
+	while ((double)clock() < koniec_czekania)
 	{
 		if (_kbhit())
 		{
@@ -48,10 +48,11 @@ void steruj(Waz& waz, Plansza& plansza) {
 
 int main()
 {
-	Plansza plansza(70, 20);
-	Waz waz(16, 9);
+	Plansza plansza(70, 25);
+	Waz waz(16, 20);
 
 	system("cls");
+	cout << "Punkty: " << waz.getDlugosc()*100;
 	while(!plansza.getGameOver() && !waz.getGameOver()) {
 		steruj(waz, plansza);
 		plansza.aktualizuj(waz);
