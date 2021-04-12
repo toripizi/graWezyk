@@ -49,7 +49,7 @@ bool Plansza::getGameOver() {
 void Plansza::aktualizuj(Waz& waz) {
 	for (int i = 0; i < wysokosc; i++) {
 		for (int j = 0; j < szerokosc; j++) {
-			if (!pola[i][j].aktualizuj()) {
+			if (!pola[i][j].aktualizuj(waz.getDlugosc())) {
 				if (pola[i][j].getJedzenie()) {
 					waz.setDlugosc(waz.getDlugosc() + 1);
 					pola[i][j].setJedzenie(false);

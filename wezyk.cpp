@@ -55,12 +55,12 @@ void wybierzPoziomTrudnosci(int number) {
 	case 1:
 		szerokosc = 50;
 		wysokosc = 20;
-		szybkosc = 100;
+		szybkosc = 130;
 		break;
 	case 2:
 		szerokosc = 50;
 		wysokosc = 20;
-		szybkosc = 80;
+		szybkosc = 90;
 		break;
 	case 3:
 		szerokosc = 50;
@@ -105,5 +105,7 @@ int main()
 		time2 = clock();
 		czekaj(clock() + szybkosc - time2 + time1, waz);
 	}
+
+
 	return 0;
 }
